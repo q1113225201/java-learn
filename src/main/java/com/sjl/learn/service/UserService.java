@@ -1,17 +1,17 @@
 package com.sjl.learn.service;
 
-import com.sjl.learn.domain.UserBean;
+import com.sjl.learn.domain.DbUser;
 
 import java.util.List;
 
 public interface UserService {
-    UserBean getUser(Long id);
+    DbUser selectByPrimaryKey(Integer id);
 
-    List<UserBean> getUserList();
+    List<DbUser> selectByExample();
 
-    Long addUser(UserBean userBean);
+    int insert(DbUser userBean);
 
-    Long deleteUser(Long id);
+    int deleteByPrimaryKey(Integer id);
 
-    Long updateUser(UserBean userBean);
+    int updateUser(DbUser userBean);
 }

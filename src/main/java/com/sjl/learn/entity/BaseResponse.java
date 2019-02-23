@@ -1,17 +1,17 @@
-package com.sjl.learn.domain;
+package com.sjl.learn.entity;
 
 public class BaseResponse<T> {
     private int code;
     private String msg;
     private T data;
 
+    public BaseResponse() {
+    }
+
     public BaseResponse(int code, String msg, T data) {
         this.code = code;
         this.msg = msg;
         this.data = data;
-    }
-
-    public BaseResponse() {
     }
 
     public int getCode() {

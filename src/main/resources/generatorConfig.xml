@@ -5,7 +5,7 @@
 <!--mybatis-generator-maven-plugin生成数据库实体的配置文件-->
 <generatorConfiguration>
     <!--导入属性配置，前面我们写的一个配置文件，你也可以直接使用mybatis的jdbc的配置文件 -->
-    <properties resource="jdbc.properties"></properties>
+    <properties resource="application.properties"></properties>
     <!-- 数据库驱动，注意，这里必须要修改成你的数据库的驱动地址-->
     <classPathEntry location="C:\Users\SJL\.m2\repository\mysql\mysql-connector-java\8.0.15\mysql-connector-java-8.0.15.jar"/>
     <context id="DB2Tables" targetRuntime="MyBatis3">
@@ -17,26 +17,23 @@
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="${driver}" connectionURL="${url}" userId="${username}" password="${password}">
         </jdbcConnection>
-        <javaTypeResolver>
-            <property name="forceBigDecimals" value="false"/>
-        </javaTypeResolver>
-        <!-- 生成模型的包名和位置-->
-        <javaModelGenerator targetPackage="com.sjl.learn.entity" targetProject="src/main/java">
-            <property name="enableSubPackages" value="true"/>
-            <property name="trimStrings" value="true"/>
-        </javaModelGenerator>
-        <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="com.sjl.learn.mapping" targetProject="src/main/java">
-            <property name="enableSubPackages" value="true"/>
-        </sqlMapGenerator>
-        <!-- 生成DAO的包名和位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sjl.learn.mapper" targetProject="src/main/java">
-            <property name="enableSubPackages" value="true"/>
-        </javaClientGenerator>
 
-        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名，这里举例，只配置了一个table，你可以配置多个-->
+        <!--这里填写生成的表实体类目录-->
+        <javaModelGenerator targetPackage="com.sjl.learn.domain" targetProject="src/main/java"/>
 
-        <table tableName="db_user"></table>
+        <!--这里填写生成的表xml目录-->
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
 
+        <!--这里填写生成的表mapper目录-->
+        <javaClientGenerator targetPackage="com.sjl.learn.dao" targetProject="src/main/java"
+                             type="XMLMAPPER"/>
+
+        <!--这里的%通配符表示库里面的所有表-->
+        <table tableName="db_user">
+            <!--mysql 配置-->
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <!--oracle 配置-->
+            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
+        </table>
     </context>
 </generatorConfiguration>

@@ -1,6 +1,6 @@
 package com.sjl.learn.result;
 
-import com.sjl.learn.domain.BaseResponse;
+import com.sjl.learn.entity.BaseResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
