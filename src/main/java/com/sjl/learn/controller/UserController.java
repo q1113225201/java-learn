@@ -1,5 +1,6 @@
 package com.sjl.learn.controller;
 
+import com.sjl.learn.domain.BaseResponse;
 import com.sjl.learn.domain.UserBean;
 import com.sjl.learn.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,42 +15,51 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public String addUser(@RequestBody UserBean userBean) {
+    public BaseResponse addUser(@RequestBody UserBean userBean) throws Exception {
+        if (userBean.getNickname() == null) {
+            throw new Exception("nickname 为空");
+        }
         Long id = userService.addUser(userBean);
         if (id != null && id > 0) {
-            return "success";
+            return new BaseResponse<String>(1, "success", null);
         } else {
-            return "failure";
+            return new BaseResponse<String>(0, "failure", null);
         }
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-    public UserBean getUser(@PathVariable("id") Long id) {
-        return userService.getUser(id);
+    public BaseResponse getUser(@PathVariable("id") Long id) {
+        UserBean userBean = userService.getUser(id);
+        if (id != null && id > 0) {
+            return new BaseResponse<UserBean>(1, "success", userBean);
+        } else {
+            return new BaseResponse<UserBean>(0, "failure", userBean);
+        }
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public List<UserBean> getUserList() {
-        return userService.getUserList();
+    public BaseResponse getUserList() {
+        List<UserBean> list = userService.getUserList();
+        return new BaseResponse<List<UserBean>>(1, null, list);
     }
 
     @RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable("id") Long id) {
+    public BaseResponse deleteUser(@PathVariable("id") Long id) {
         Long result = userService.deleteUser(id);
         if (result != null && result > 0) {
-            return "success";
+            return new BaseResponse<Long>(1, "success", result);
         } else {
-            return "failure";
+            return new BaseResponse<Long>(1, "failure", result);
         }
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.PUT)
-    public String updateUser(@RequestBody UserBean userBean) {
+    public BaseResponse updateUser(@RequestBody UserBean userBean) {
         Long id = userService.updateUser(userBean);
         if (id != null && id > 0) {
-            return "success";
+            return new BaseResponse<Long>(1, "success", id);
         } else {
-            return "failure";
+            return new BaseResponse<Long>(1, "failure", id);
         }
     }
 }
