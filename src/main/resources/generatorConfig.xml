@@ -15,25 +15,21 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="${driver}" connectionURL="${url}" userId="${username}" password="${password}">
+        <jdbcConnection driverClass="${data.datasource.driver-class-name}" connectionURL="${data.datasource.url}" userId="${data.datasource.username}" password="${data.datasource.password}">
         </jdbcConnection>
 
         <!--这里填写生成的表实体类目录-->
-        <javaModelGenerator targetPackage="com.sjl.learn.domain" targetProject="src/main/java"/>
+        <javaModelGenerator targetPackage="com.sjl.learn.domain.data" targetProject="src/main/java"/>
 
         <!--这里填写生成的表xml目录-->
-        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources"/>
+        <sqlMapGenerator targetPackage="mapper/data" targetProject="src/main/resources"/>
 
         <!--这里填写生成的表mapper目录-->
-        <javaClientGenerator targetPackage="com.sjl.learn.dao" targetProject="src/main/java"
+        <javaClientGenerator targetPackage="com.sjl.learn.dao.data" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
         <!--这里的%通配符表示库里面的所有表-->
-        <table tableName="db_user">
-            <!--mysql 配置-->
-            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
-            <!--oracle 配置-->
-            <!--<generatedKey column="id" sqlStatement="select SEQ_{1}.nextval from dual" identity="false" type="pre"/>-->
-        </table>
+        <table tableName="db_user"></table>
+        <!--<table tableName="db_user_type"></table>-->
     </context>
 </generatorConfiguration>

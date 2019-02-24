@@ -18,10 +18,11 @@ public class AccessTokenInterceptor extends HandlerInterceptorAdapter {
         logger.info("preHandler:" + request.getRequestURI());
         String accessToken = request.getHeader("token");
         logger.info(accessToken);
-        if ("123".equals(accessToken)) {
+        /*if ("123".equals(accessToken)) {
             return super.preHandle(request, response, handler);
         } else {
             return false;
-        }
+        }*/
+        return super.preHandle(request, response, handler);
     }
 }
