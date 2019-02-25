@@ -1,6 +1,8 @@
 package com.sjl.learn.domain.base;
 
-public class DbUserType {
+import java.io.Serializable;
+
+public class DbUserType implements Serializable {
     private Integer id;
 
     private String name;
